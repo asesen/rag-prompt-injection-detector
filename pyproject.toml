@@ -2,7 +2,7 @@
 name = "rag-prompt-injection-detector"
 version = "0.1.0"
 description = "RAG system with light defence from jailbreaks"
-authors = ["Strelkov Andrey, Ikonnikov Mark, Prein Dmitry, Korneenko Sergei, Portnov Timyr"]
+authors = ["Strelkov Andrey, Ikonnikov Mark, Prein Dmitrii, Korneenko Sergei, Portnov Timyr"]
 readme = "README.md"
 repository = "https://github.com/asesen/rag-prompt-injection-detector"
 keywords = ["data science", "machine learning", "rag", "prompt injection", "security"]
@@ -10,6 +10,7 @@ license = "Apache-2.0"
 
 [tool.poetry.dependencies]
 python = "~3.11"
+python-telegram-bot = "^20.7"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"

@@ -72,6 +72,33 @@ Finally add `pre-commit` hooks to git: `pre-commit install`
 
 At this step you are ready to write clean reproducible code!
 
+## Telegram Bot
+
+В проекте есть простой Telegram бот для взаимодействия с RAG системой.
+
+### Быстрый старт
+
+1. Создайте виртуальное окружение и установите зависимости:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+2. Получите токен бота у [@BotFather](https://t.me/BotFather) в Telegram
+
+3. Установите токен:
+```bash
+export TELEGRAM_BOT_TOKEN='your_token_here'
+```
+
+4. Запустите бота:
+```bash
+./run_bot.sh
+```
+
+Подробнее см. `telegram_bot/README.md`
+
 ## More tools
 
 - Changelog generation: https://towncrier.readthedocs.io/en/stable/

@@ -1,0 +1,7 @@
+# Зависимости для Telegram бота
+python-telegram-bot>=21.0
+
+# Для разработки (опционально)
+pytest==7.4.4
+pre-commit==3.6.0
+

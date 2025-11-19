@@ -11,7 +11,7 @@ class VectorStore:
         train_path: str = "data/train_with_embeddings.parquet",
         val_path: str = "data/val_with_embeddings.parquet",
         test_path: str = "data/test_with_embeddings.parquet",
-        context_path: str = "data/quest ions_with_embeddings.parquet"
+        context_path: str = "data/questions_with_embeddings.parquet"
     ):
 
         self.dimension = dimension
@@ -59,6 +59,7 @@ class VectorStore:
         # Add context embeddings (if exist)
         if self.context_embeddings is not None:
             self.index.add(self.context_embeddings)
+            print("Added context embeddings to FAISS index")
 
         self.use_faiss = True
 
@@ -109,6 +110,12 @@ class VectorStore:
             return None
 
         return "\n\n".join(blocks)
+
+    def get_label(self, idx):
+        if idx < self.n_train:
+            return self.train_df['jailbreak'][idx]
+        else:
+            return 0
 
     # ======================================================================
     # Original methods required by detector (keep unchanged)

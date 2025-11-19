@@ -178,6 +178,14 @@ class Detector:
         context: пока заглушка
         Возвращает: вероятность класса 'jailbreak' (float 0..1)
         """
+        weights = []
+        for dist, idx in zip(context_dist, context_idx):
+            label = self.vector_store.get_label(idx)
+            if dist < self.exact_match_threshold:
+                return label # совпадение
+            label = label * 3 - 1 # 0 -> -1, 1 -> 2 (вес второго класса больше)
+            weights.append(1 / (dist + self.eps) * label)
+
         emb = np.array(emb, dtype=np.float32).reshape(-1)  # гарантируем 1D
         logits, _ = self.predict_primary_intermediate(emb)  # logits shape (2,)
 
@@ -185,11 +193,16 @@ class Detector:
         probs = F.softmax(torch.tensor(logits), dim=0).numpy()  # shape (2,)
         jailbreak_prob = probs[1]
 
-        return jailbreak_prob
+        if jailbreak_prob > 0.6:
+            return 1
+        if jailbreak_prob < 0.4:
+            return 0
+        return np.sum(weights) > 0
+
 
 
 # -----------------------
-# Пример использования (псевдокод, запускать в среде с parquet и faiss или без faiss)
+# Пример использования (псевдокод, запускать в среде с parquet и faiss)
 # -----------------------
     # Пример (не запускается автоматически, используй в своей среде)
     # vector_store = VectorStore(...)
@@ -197,9 +210,4 @@ class Detector:
     #
     # detector.train_primary(epochs=10, batch_size=128, lr=1e-3, weight_decay=1e-4, save_path="primary_cpu.pt")
     # detector.load_primary("primary_cpu.pt")
-    # detector.train_secondary(epochs=8, batch_size=128, lr=5e-4, weight_decay=1e-4, small_train_fraction=0.05, neighbor_k=5, save_path="secondary_cpu.pt")
-    # detector.load_secondary("secondary_cpu.pt")
-    #
-    # # пример инференса на первых 10 тестовых примерах:
-    # test_df = vector_store.give_test_data()
-    # embs = np.vstack(test_df['embedding'].values)[:10]
+

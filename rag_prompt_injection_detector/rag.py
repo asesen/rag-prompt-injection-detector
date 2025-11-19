@@ -98,7 +98,7 @@ class RAG:
             return f"Detector error: {e}"
         print("det answer ", is_jailbreak)
 
-        if is_jailbreak > self.threshold:
+        if is_jailbreak > self.threshold: # сейчас возвращает 0 или 1
             return "Sorry, this prompt is not allowed."
 
         # ===== RAG context =====

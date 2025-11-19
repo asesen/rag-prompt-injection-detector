@@ -1,77 +1,51 @@
-# Template for Data Science Project
+# Как запустить проект
 
-This repo aims to give a robust starting point to any Data Science related
-project.
+Мы использовали poetry для версионирования, поэтому вам достаточно создать окружение использу toml файл
 
-It contains readymade tools setup to start adding dependencies and coding.
+- Установите питон (например 3.11)и poetry
+-  poetry env (можно явно указать путь до питона в виде use C:\)
+-  Creating virtualenv rag-prompt-injection-detector-8FInNsB7-py3.11 in C:\Users\Andrey\AppData\Local\pypoetry\Cache\virtualenvs
+-  используйте созданное окружение (путь до него будет указан после создания, смотри пример сверху)
+-  Установите необходимые зависимости командой poetry install
+-  в корне создайте secret.py TELEGRAM_BOT_TOKEN = Токен для бота API_KEY = токен для MistralAI
+-  запустите bot.py, чтобы создать ТГ бота
+-  чтобы задать вопрос RAG агенту используйте _init_.py
 
-To get yourself familiar with tools used here watch
-[my talk on Data Science project setup (in Russian)](https://youtu.be/jLIAiDMyseQ)
+## О чем этот проект
 
-**If you use this repo as a template - leave a star please** because template
-usages don't count in Forks.
+Мы хотели сделать защиту, которая бы опиралась на архитектуру RAG. 
 
-## Workflow
+Итог проекта - пример RAG агента, который детектирует jailbreak.
 
-Experiments and technology discovery are usualy performed on Jupyter Notebooks.
-For them `notebooks` directory is reserved. More info on working with Notebooks
-could be found in `notebooks/README.md`.
+Для презентации наших результатов мы сделали простой RAG, который призван отвечать на вопросы питона и простой ТГ-Бот, через который можно пообщаться с агентом.
 
-More mature part of pipeline (functions, classes, etc) are stored in `.py` files
-in main package directory (by default `ds_project`).
+Подробно о экспериментах можно посмотреть в презентации.
 
-## What to change?
+В папке rag_prompt_injection_detector находятся основные модули нашего RAG агента:
 
-- project name (default: `ds_project`)
-  - in `pyproject.toml` - tool.poetry.name
-  - main project directory (`ds_project`)
-  - test in `tests` directory
-- line length (default: `90`) [Why 90?](https://youtu.be/esZLCuWs_2Y?t=1287)
-  - in `pyproject.toml` in blocks
-    - black
-    - isort
-  - in `setup.cfg` for `flake8`
-  - in `.pre-commit-config.yaml` for `prettier`
+-rag класс RAG - основа агента, в нем логика работы, llm, emb
 
-## How to setup an environment?
+-detector - Detector класс, который используется для детекции jailbreak
 
-This template use `poetry` to manage dependencies of your project. They
+-vectorstore - VectorStore класс, который используется для получения context, jailbreak context, a также с его помощью можно обучить Detector
 
-First you need to
-[install poetry](https://python-poetry.org/docs/#installation).
+-primary_cpu.pt - хранит обученный детектор
 
-Then if you use `conda` (recommended) to manage environments (to use regular
-virtualenvenv just skip this step):
+В папке data храняться данные, полученные нами после обработки исходного датасета
 
-- tell `poetry` not to create new virtualenv for you
+Мы не мало экспериментировали, большая часть экспериментов находиться в ноутбуках.
 
-  (instead `poetry` will use currently activated virtualenv):
+## Полезные ссылки
 
-  `poetry config virtualenvs.create false`
+Наш бот - @safety_rag_for_python_bot
 
-- create new `conda` environment for your project (change env name for your
-  desired one):
+(Он иногда спит, чтобы его разбудтить можно использовать почту: strelkov.as@phystech.edu)
 
-  `conda create -n ds_project python=3.9`
+Презентация - https://docs.google.com/presentation/d/1apNO330lFwAPMLrEKN_rBlIDZAmsFPw5NsXHmxfjuo4/edit?usp=sharing
 
-- actiave environment:
 
-  `conda activate ds_project`
 
-Now you are ready to add dependencies to your project. For this use
-[`add` command](https://python-poetry.org/docs/cli/#add):
 
-`poetry add scikit-learn torch <any_package_you_need>`
 
-Next run `poetry install` to check your final state are even with configs.
 
-After that add changes to git and commit them
-`git add pyproject.toml poetry.lock`
 
-Finally add `pre-commit` hooks to git: `pre-commit install`
-
-At this step you are ready to write clean reproducible code!
-
-## More tools
-
-- Changelog generation: https://towncrier.readthedocs.io/en/stable/

@@ -1,55 +1,34 @@
-[tool.poetry]
-name = "rag-prompt-injection-detector"
+[project]
+name = "rag_prompt_injection_detector"
 version = "0.1.0"
-description = "RAG system with light defence from jailbreaks"
-authors = ["Strelkov Andrey, Ikonnikov Mark, Prein Dmitry, Korneenko Sergei, Portnov Timyr"]
+description = "RAG-based prompt injection detector"
+authors = [
+    { name = "Mark Ikonnikov", email = "mrkikonnikov@gmail.com" },
+    { name = "Strelkov Andrey", email = "astrelkov2004@gmail.com" },
+    { name = "Korneenko Sergei", email = "Kornienko.sm@phystech.edu" }
+]
 readme = "README.md"
 repository = "https://github.com/asesen/rag-prompt-injection-detector"
 keywords = ["data science", "machine learning", "rag", "prompt injection", "security"]
 license = "Apache-2.0"
 
-[tool.poetry.dependencies]
-python = "~3.11"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^3.6.0"
-pytest = "^7.4.4"
-
-[tool.black]
-line-length = 90
-target-version = ["py311"]
-
-[tool.isort]
-src_paths = ["ds_project"]
-profile = "black"
-line_length = 90
-lines_after_imports = 2
-
-[tool.flake8]
-max-line-length = 90
-ignore = ['E203', 'E501', 'W503', 'B950']
-max-complexity = 12
-select = ['B', 'C', 'E', 'F', 'W', 'B9']
-per-file-ignores = [
-    # for easier imports to __init__ without __all__
-    '**/__init__.py: F401',
-    # file to define custom types
-    'types.py: F401',
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "langchain (>=1.0.7,<2.0.0)",
+    "langchain-mistralai (>=1.0.1,<2.0.0)",
+    "langchain-community (>=0.4.1,<0.5.0)",
+    "faiss-cpu (>=1.7.4)",
+    "numpy (>=1.26.4,<2.0.0)",
+    "pandas (>=2.3.3,<3.0.0)",
+    "torch (>=2.2.0,<2.3.0)",
+    "scikit-learn (>=1.7.2,<2.0.0)",
+    "tqdm (>=4.67.1,<5.0.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "pyarrow (>=15.0.0)",
+    "fastparquet (>=2024.0.0)"
 ]
-count = true
 
-[tool.nbqa.config]
-black = "pyproject.toml"
-isort = "pyproject.toml"
-flake8 = "pyproject.toml"
-
-[tool.nbqa.addopts]
-flake8 = ["--extend-ignore=E402"]
-
-[tool.nbqa.mutate]
-black = 1
-isort = 1
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

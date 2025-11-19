@@ -83,7 +83,7 @@ class TelegramBot:
             "👥 Команда разработчиков:\n"
             "• Strelkov Andrey\n"
             "• Ikonnikov Mark\n"
-            "• Prein Dmitry\n"
+            "• Prein Dmitrii\n"
             "• Korneenko Sergei\n"
             "• Portnov Timyr\n\n"
             "📦 Версия: 0.1.0"

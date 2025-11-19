@@ -39,7 +39,7 @@
 
 Наш бот - @safety_rag_for_python_bot
 
-(Он иногда спит, чтобы его разбудтить можно использовать почту: strelkov.as@phystech.edu
+(Он иногда спит, чтобы его разбудтить можно использовать почту: strelkov.as@phystech.edu)
 
 Презентация - https://docs.google.com/presentation/d/1apNO330lFwAPMLrEKN_rBlIDZAmsFPw5NsXHmxfjuo4/edit?usp=sharing
 
